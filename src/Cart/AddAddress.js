@@ -10,7 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const BASE_URL = 'http://213.210.21.175:5000/AW0001/api/v1';
 
 const AddAddress = ({ navigation, route }) => {
