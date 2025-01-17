@@ -3,7 +3,16 @@
  */
 
 import {AppRegistry} from 'react-native';
-import App from './App';
+import App from './app';
 import {name as appName} from './app.json';
+import {StoreProvider} from './src/store/store';
 
-AppRegistry.registerComponent(appName, () => App);
+const MyApp=()=>{
+    return (
+        <StoreProvider>
+            <App/>
+        </StoreProvider>
+    )
+}
+
+AppRegistry.registerComponent(appName, () => MyApp);
