@@ -8,15 +8,20 @@ import { AppInput } from '../../components/AppInput';
 import { fieldTypes } from '../../constant/type';
 import { AppButton } from '../../components/button/AppButton';
 import { Validator } from '../../helper/Validator';
+import { loginUserByApi } from '../../api/api_method/AuthApi';
+import { Helper } from '../../helper/Helper';
+import { setUserStorage } from '../../store/Asyncstorage';
+import { setLoginDetail } from '../../store/action';
 
 const Login = () => {
   const [data,setData] = useState({
     email: "",
     password: "",
+    activity: false,
   });
   const [error,setError] = useState({
     type: "",
-    msg: ""
+    msg: "",
   });
 
   const changeFieldByType=useCallback((value, key)=>{
@@ -32,7 +37,7 @@ const Login = () => {
     return "";
   },[error]);
 
-  const onSubmit=useCallback(()=>{
+  const onSubmit=useCallback(async()=>{
     if(data.email === ""){
       const msg = "Email is required";
       setError({msg, type: fieldTypes.email});
@@ -49,6 +54,20 @@ const Login = () => {
       return;
     }
     setError({msg: "", type: ""});
+    setData({...data, activity: true});
+    const res = await loginUserByApi({
+      email: data.email,
+      password: data.password
+    });
+    const user = {
+      ...res.detail?.user,
+      token: res.detail?.token
+    }
+    Helper.log("user",user);
+    if(res.detail){
+      setLoginDetail(user);
+    }
+    setData({...data, activity: false});
   },[data,error]);
 
   return (
@@ -85,6 +104,8 @@ const Login = () => {
           <AppButton
             title="SIGN IN"
             onPress={onSubmit}
+            activity={data.activity}
+            disabled={data.activity}
           />
         </View>
       </View>

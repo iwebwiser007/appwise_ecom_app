@@ -1,4 +1,5 @@
 export const routeNames = {
     login: "login",
-    register: "register"
+    register: "register",
+    home: "home"
 }

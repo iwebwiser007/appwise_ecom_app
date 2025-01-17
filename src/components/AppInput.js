@@ -11,6 +11,7 @@ import {AppText} from './AppHeading';
 import {spacer} from '../constant/dimension';
 import {TouchableButton} from './TouchableButton';
 import { useThemeColor } from '../theme/themeContext';
+import { Spacer } from './Spacer';
 
 export const AppInput = ({
   defaultValue = '',
@@ -117,16 +118,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     // Shadow for Android
-    elevation: 5,
+    elevation: 2,
   },
   label: {
     position: 'absolute',
     left: Platform.OS === 'android' ? 25 : 20,
-    top: 12,
+    top: 18,
   },
   input: {
-    marginTop: 18,
-    height: 30,
+    marginTop: 15,
+    //height: 30,
     width: '100%',
   },
 });

@@ -16,7 +16,7 @@ export const AuthNavigator=()=>{
 export const HomeNavigator=()=>{
     return (
         <Stack.Navigator>
-            
+            <Stack.Screen name={routeNames.home} component={Screen.Home}/>
         </Stack.Navigator>
     )
 }
