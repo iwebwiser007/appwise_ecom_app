@@ -4,5 +4,6 @@ const baseUrl = `${server}/AW0001/api/v1/`
 
 export const apiUrl = {
     login: `${baseUrl}signin`,
-    register: `${baseUrl}signup`
+    register: `${baseUrl}signup`,
+    verify_token: `${baseUrl}verify-token`,
 }

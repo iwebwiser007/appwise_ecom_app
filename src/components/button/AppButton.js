@@ -14,7 +14,7 @@ export const AppButton = ({
 }) => {
   return (
     <TouchableButton
-        disabled={disabled}
+        disabled={disabled || activity}
       onPress={onPress}
       style={[
         styles.container,
@@ -24,7 +24,7 @@ export const AppButton = ({
       ]}>
       <AppHeading title={title} color={textColor} fontSize={16} />
 
-      {activity && <ActivityIndicator />}
+      {activity && <ActivityIndicator color={colors.white}/>}
     </TouchableButton>
   );
 };

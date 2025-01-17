@@ -3,6 +3,7 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { Icons } from '../../assets/icons';
 import Animated, {
   interpolate,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
@@ -11,7 +12,7 @@ import { AppHeading, AppText } from '../../components/AppHeading';
 import { colors } from '../../constant/color';
 import { AppButton } from '../../components/button/AppButton';
 import { Spacer } from '../../components/Spacer';
-import { setAppStatus } from '../../store/action';
+import { setAppStatus, startApp } from '../../store/action';
 import { appStatusTypes } from '../../constant/type';
 
 const Splash = () => {
@@ -24,10 +25,11 @@ const Splash = () => {
 
   const startTransformation = useCallback(()=>{
     scaleSize.value = withSpring(1, { duration: 1200 },()=>{
-      translateY.value = withSpring(1, { duration: 800 },()=>{
-        
-      });
+      translateY.value = withSpring(1, { duration: 800 });
     });
+    setTimeout(()=>{
+      startApp();
+    },2200);
   },[]);
 
   // Style for the expanding mask animation

@@ -8,20 +8,11 @@ import { AppInput } from '../../components/AppInput';
 import { fieldTypes } from '../../constant/type';
 import { AppButton } from '../../components/button/AppButton';
 import { Validator } from '../../helper/Validator';
-import { loginUserByApi } from '../../api/api_method/AuthApi';
-import { Helper } from '../../helper/Helper';
-import { setUserStorage } from '../../store/Asyncstorage';
-import { setLoginDetail } from '../../store/action';
-import { Icons } from '../../assets/icons';
-import { Row } from '../../components/Row';
-import { TouchableButton } from '../../components/TouchableButton';
-import { colors } from '../../constant/color';
-import { AppNavigation } from '../../route/app_navigation';
+import { h } from '../../constant/dimension';
 
-const Login = () => {
+const ForgetPassword = () => {
   const [data,setData] = useState({
-    email: "tulsi111197@gmail.com",
-    password: "123456",
+    email: "",
     activity: false,
   });
   const [error,setError] = useState({
@@ -53,31 +44,8 @@ const Login = () => {
       setError({msg, type: fieldTypes.email});
       return;
     }
-    if(data.password === ""){
-      const msg = "Password is required";
-      setError({msg, type: fieldTypes.password});
-      return;
-    }
-    setError({msg: "", type: ""});
-    setData({...data, activity: true});
-    const res = await loginUserByApi({
-      email: data.email,
-      password: data.password
-    });
-    const user = {
-      ...res.detail?.user,
-      token: res.detail?.token
-    }
-    Helper.log("user",user);
-    if(res.detail){
-      setLoginDetail(user);
-    }
-    setData({...data, activity: false});
+    
   },[data,error]);
-
-  const onForgetPassword=useCallback(()=>{
-    AppNavigation.navigateToForgetPassword()
-  },[])
 
   return (
     <AppContainer>
@@ -91,8 +59,13 @@ const Login = () => {
           style={{
             padding: 10,
           }}>
-          <AppHeading title={'Sign in'} fontSize={32} />
-          <Spacer size={30}/>
+          <AppHeading title={'Forget password'} fontSize={32} />
+          <Spacer size={h(6)}/>
+          <AppText
+            title={"Please, enter your email address. You will receive a link to create a new password via email."}
+
+          />
+          <Spacer size={20}/>
           <AppInput
             label='Email'
             onChangeText={(value)=>changeFieldByType(value, fieldTypes.email)}
@@ -102,25 +75,10 @@ const Login = () => {
             autoCapitalize="none"
           />
           <Spacer/>
-          <AppInput
-            label='Password'
-            onChangeText={(value)=>changeFieldByType(value, fieldTypes.password)}
-            defaultValue={data.password}
-            error={getErrorByType(fieldTypes.password)}
-          />
-          <Spacer/>
-                    <TouchableButton onPress={onForgetPassword} style={{alignItems: 'flex-end'}}>
-                      <Row gap={5}>
-                        <AppText
-                          title={"Forgot your password?"}
-                        />
-                        <Icons.RightArrowIcon color={colors.primary}/>
-                      </Row>
-                    </TouchableButton>
           <Spacer size={50} />
 
           <AppButton
-            title="SIGN IN"
+            title="SEND"
             onPress={onSubmit}
             activity={data.activity}
             disabled={data.activity}
@@ -131,4 +89,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgetPassword;

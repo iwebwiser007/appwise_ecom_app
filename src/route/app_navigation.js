@@ -7,4 +7,10 @@ export class AppNavigation {
             navigationRef?.navigate(routeNames.login);
         }
     }
+
+    static navigateToForgetPassword=()=>{
+        if(navigationRef.isReady()){
+            navigationRef?.navigate(routeNames.forgetPassword);
+        }
+    }
 }

@@ -63,13 +63,11 @@ export const PostRequest = async (
   try {
     spinner && setSpinner(true);
     const response = await fetch(url, config);
-    if (response.status == 200) {
-      let res = '';
+    let res = '';
       res = await response.json();
       spinner && setSpinner(false);
       callback && callback(res);
       return res;
-    }
   } catch (error) {
     console.log('error---------', error);
     spinner && setSpinner(false);

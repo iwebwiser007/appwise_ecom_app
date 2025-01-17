@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {View, Text} from 'react-native';
 import {AppContainer} from '../../components/AppContainer';
 import {BackButton} from '../../components/button/BackButton';
@@ -12,18 +12,27 @@ import { Icons } from '../../assets/icons';
 import { TouchableButton } from '../../components/TouchableButton';
 import { AppNavigation } from '../../route/app_navigation';
 import { Validator } from '../../helper/Validator';
+import { getRegisterForm } from '../../api/form';
+import { registerUserByApi } from '../../api/api_method/AuthApi';
+import { Helper } from '../../helper/Helper';
+import { setLoginDetail } from '../../store/action';
 
 const Register = () => {
   const [data,setData] = useState({
     name: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    activity: false,
   });
   const [error,setError] = useState({
     type: "",
     msg: ""
-  })
+  });
+
+  useEffect(()=>{
+    setData({...data, activity: false});
+  },[])
 
 
   const changeFieldByType=useCallback((value, key)=>{
@@ -71,7 +80,26 @@ const Register = () => {
       return;
     }
     setError({msg: "", type: ""});
+    registerUser();
   },[data,error]);
+
+  const registerUser=useCallback(async()=>{
+    const form = getRegisterForm({
+      name: data.name,
+      email: data.email,
+      password: data.password
+    });
+    setData({...data, activity: true});
+    const res = await registerUserByApi({form});
+    setData({...data, activity: false});
+    if(res.detail){
+      const user = {
+        ...res.detail?.newUser,
+        token: res.detail?.token,
+      };
+      setLoginDetail(user);
+    }
+  },[data]);
 
   const onLogin=useCallback(()=>{
     AppNavigation.navigateToLogin();
@@ -132,6 +160,7 @@ const Register = () => {
           <AppButton
             title="SIGN UP"
             onPress={onSubmit}
+            activity={data.activity}
           />
         </View>
       </View>

@@ -33,25 +33,25 @@ export const AppInput = ({
     if (!isFocus && defaultValue == "") {
       unFocusAnimation();
     }
-  }, [defaultValue,error]);
+  }, [defaultValue,error,isFocus]);
 
   const onFocus = useCallback(() => {
     setFocus(true);
     scale.value = withTiming(1, {duration: 200}); // Animate up when focused
   }, []);
 
-  const onBlur = useCallback(() => {
+  const onBlur = ()=>{
     if (defaultValue === '') {
       unFocusAnimation();
     }
-  }, []);
+  }
 
   const unFocusAnimation = useCallback(() => {
     scale.value = withTiming(0, {duration: 200}); // Animate back down when unfocused
   }, []);
 
   const labelStyle = useAnimatedStyle(() => {
-    const translateY = interpolate(scale.value, [0, 1], [10, 0]); // Adjust Y position
+    const translateY = interpolate(scale.value, [0, 1], [0, -15]); // Adjust Y position
     const fontSize = interpolate(scale.value, [0, 1], [16, 12]); // Adjust font size
     return {
       transform: [{translateY}],
@@ -123,10 +123,9 @@ const styles = StyleSheet.create({
   label: {
     position: 'absolute',
     left: Platform.OS === 'android' ? 25 : 20,
-    top: 18,
   },
   input: {
-    marginTop: 15,
+    marginTop: 20,
     //height: 30,
     width: '100%',
   },
