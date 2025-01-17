@@ -18,6 +18,7 @@ export const HomeSectionProductList=({
             <Row spaceBetween>
                 <AppHeading
                     title={title}
+                    fontSize={30}
                 />
                 <AppText
                     title={"View All"}

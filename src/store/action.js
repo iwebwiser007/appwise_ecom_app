@@ -40,12 +40,12 @@ export const setLoginDetail=(user)=>{
 }
 
 export const startApp=async()=>{
-    // const res = await getStorage();
-    // if(res.user?.id){
-    //     setUserDetail(res.user);
-    //     setAppStatus(appStatusTypes.home);
-    //     return;
-    // }
+    const res = await getStorage();
+    if(res.user?.id){
+        setUserDetail(res.user);
+        setAppStatus(appStatusTypes.home);
+        return;
+    }
     setAppStatus(appStatusTypes.auth);
 }
 

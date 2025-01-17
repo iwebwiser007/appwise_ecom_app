@@ -2,6 +2,8 @@ import React, {useContext} from 'react';
 import {Text} from 'react-native';
 import {useThemeColor, ThemeContext} from '../theme/themeContext';
 
+<Text style={{}} />;
+
 export const AppHeading = ({
   title,
   fontSize = 18,
@@ -10,6 +12,7 @@ export const AppHeading = ({
   textAlign,
   style,
   onPress,
+  isLineThrough,
 }) => {
   const themeColor = useThemeColor();
   const textColor = color ? color : themeColor.text;
@@ -23,6 +26,7 @@ export const AppHeading = ({
         fontWeight,
         textAlign,
         ...style,
+        textDecorationLine: isLineThrough ? 'line-through' : 'none',
       }}>
       {title}
     </Text>

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Alert} from 'react-native';
 import {AppContainer} from '../../components/AppContainer';
 import {BackButton} from '../../components/button/BackButton';
 import {Spacer} from '../../components/Spacer';
@@ -9,6 +9,8 @@ import { fieldTypes } from '../../constant/type';
 import { AppButton } from '../../components/button/AppButton';
 import { Validator } from '../../helper/Validator';
 import { h } from '../../constant/dimension';
+import { getPasswordChangeLinkByApi } from '../../api/api_method/AuthApi';
+import { AppNavigation } from '../../route/app_navigation';
 
 const ForgetPassword = () => {
   const [data,setData] = useState({
@@ -44,8 +46,22 @@ const ForgetPassword = () => {
       setError({msg, type: fieldTypes.email});
       return;
     }
-    
+    setError({msg: "", type: ""});
+    sendLink();
   },[data,error]);
+
+  const sendLink=useCallback(async()=>{
+    setData({...data, activity: true});
+    const res = await getPasswordChangeLinkByApi({email: data.email});
+    setData({...data, activity: false});
+    if(res.status){
+      Alert.alert(
+        "",
+        "Password Reset link has been sent on your email."
+      );
+      AppNavigation.goBack();
+    }
+  },[data]);
 
   return (
     <AppContainer>

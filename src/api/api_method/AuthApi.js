@@ -56,3 +56,22 @@ export const verifyTokenByApi=async({
     obj['status'] = true;
     return obj;
 }
+
+export const getPasswordChangeLinkByApi=async({
+    email
+})=>{
+    const obj = {
+        status: false,
+    }
+    let URL = apiUrl.forget_password;
+    const res = await PostRequest({
+        url: URL,
+        body:{
+            email
+        }
+    });
+    if(isSuccess(res)){
+        obj['status'] = true;
+    }
+    return obj;
+}

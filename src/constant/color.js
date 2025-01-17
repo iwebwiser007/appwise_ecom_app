@@ -8,4 +8,5 @@ export const colors = {
     modelColor: "rgba(0,0,0,0.4)",
     red: "#FF4B3A",
     activityPlaceholder: "#EBEBEB",
+    rating: "#FFBA49"
 }
