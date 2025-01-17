@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {View, Image, StyleSheet, Text} from 'react-native';
 import {spacer, w} from '../../constant/dimension';
 import {ProductListRatingCard} from '../rating/ProductListRatingCard';
@@ -7,18 +7,30 @@ import {colors} from '../../constant/color';
 import {Row} from '../Row';
 import {Helper} from '../../helper/Helper';
 import {ProductBadge} from './ProductBadge';
+import {useAnimatedKeyboard} from 'react-native-reanimated';
+import {AppImage} from '../AppImage';
 
-export const ProductListCard = () => {
+export const ProductListCard = ({product}) => {
   const imgWidth = w(40);
+
+  const productData = useMemo(() => {
+    return {
+      name: product?.product_name,
+      image: product?.product_image,
+      price: product?.product_price,
+    };
+  }, [product]);
+
   return (
     <View style={styles.container}>
-      <View>
-        <Image
-          style={{
-            width: imgWidth,
-            height: imgWidth * 2 * 0.6,
-          }}
-          source={require('../../assets/images/product.png')}
+      <View style={{
+        backgroundColor:colors.activityPlaceholder,
+        borderRadius: 10
+      }}>
+        <AppImage
+          width={imgWidth}
+          height={imgWidth * 2 * 0.6}
+          url={productData.image}
         />
         <View
           style={{
@@ -36,7 +48,7 @@ export const ProductListCard = () => {
         }}>
         <ProductListRatingCard />
         <AppText title={'Dorothy'} color={colors.placeholder} />
-        <AppHeading title={'Evening Dress'} fontSize={16} />
+        <AppHeading title={productData.name} fontSize={16} />
         <Row gap={5}>
           <AppHeading
             isLineThrough

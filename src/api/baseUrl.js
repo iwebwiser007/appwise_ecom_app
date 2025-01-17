@@ -11,4 +11,5 @@ export const apiUrl = {
 
     //Home
     get_banner: `${baseUrl}getallbanner`,
+    get_home_product: `${baseUrl}getHomeProducts`,
 }

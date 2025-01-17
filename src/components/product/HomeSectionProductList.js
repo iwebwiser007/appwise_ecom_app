@@ -8,8 +8,8 @@ import { spacer } from "../../constant/dimension";
 
 
 export const HomeSectionProductList=({
-    title = "New Arrival",
-    list=[1,1,1,1,1,1,1]
+    title = "",
+    list=[]
 })=>{
     return (
         <View style={{
@@ -29,9 +29,12 @@ export const HomeSectionProductList=({
                 data={list}
                 horizontal
                 keyExtractor={(_,i)=>i.toString()}
-                renderItem={()=>{
+                ItemSeparatorComponent={()=><Spacer/>}
+                renderItem={({item})=>{
                     return (
-                        <ProductListCard/>
+                        <ProductListCard
+                            product={item}
+                        />
                     )
                 }}
             />
