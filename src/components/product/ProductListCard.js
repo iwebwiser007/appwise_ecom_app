@@ -10,7 +10,7 @@ import {ProductBadge} from './ProductBadge';
 import {useAnimatedKeyboard} from 'react-native-reanimated';
 import {AppImage} from '../AppImage';
 
-export const ProductListCard = ({product}) => {
+export const ProductListCard = ({product, isNew}) => {
   const imgWidth = w(40);
 
   const productData = useMemo(() => {
@@ -23,23 +23,28 @@ export const ProductListCard = ({product}) => {
 
   return (
     <View style={styles.container}>
-      <View style={{
-        backgroundColor:colors.activityPlaceholder,
-        borderRadius: 10
-      }}>
+      <View
+        style={{
+          backgroundColor: colors.activityPlaceholder,
+          borderRadius: 10,
+          overflow: 'hidden'
+        }}>
         <AppImage
           width={imgWidth}
           height={imgWidth * 2 * 0.6}
           url={productData.image}
+          resizeMode={"cover"}
         />
-        <View
-          style={{
-            position: 'absolute',
-            left: 10,
-            top: 10,
-          }}>
-          <ProductBadge />
-        </View>
+        {isNew ? (
+          <View
+            style={{
+              position: 'absolute',
+              left: 10,
+              top: 10,
+            }}>
+            <ProductBadge />
+          </View>
+        ) : null}
       </View>
       <View
         style={{
@@ -56,7 +61,7 @@ export const ProductListCard = ({product}) => {
             fontSize={16}
             color={colors.placeholder}
           />
-          <AppHeading title={Helper.getPrice(99)} fontSize={16} />
+          <AppHeading title={Helper.getPrice(productData.price)} fontSize={16} />
         </Row>
       </View>
     </View>

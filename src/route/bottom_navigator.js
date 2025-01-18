@@ -10,6 +10,7 @@ import { AppText } from '../components/AppHeading';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { TouchableButton } from '../components/TouchableButton';
 import { useNavigation } from '@react-navigation/native';
+import { Spacer } from '../components/Spacer';
 
 const Tab = createBottomTabNavigator();
 
@@ -99,6 +100,7 @@ const TabButton = ({index, activeIndex, title, onPress}) => {
         justifyContent: 'center',
       }}>
       {getTabIcon(index, activeIndex)}
+      <Spacer size={3} />
       <AppText title={title} color={index === activeIndex ? activeColor : inActiveColor} />
     </TouchableButton>
   );

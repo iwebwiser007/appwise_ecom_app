@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, RefreshControl} from 'react-native';
 import {AppContainer} from '../../components/AppContainer';
 import {Banner} from './Banner';
 import {colors} from '../../constant/color';
@@ -31,11 +31,16 @@ const Home = () => {
     });
   }, [data]);
 
+  const onRefresh = useCallback(()=>{
+    getHomeData();
+  },[]);
+
   if (data.activity) {
     return <HomePlaceholder />;
   }
   return (
     <ScrollView
+      refreshControl={<RefreshControl refreshing={false} onRefresh={onRefresh} />}
       style={{
         flex: 1,
         backgroundColor: colors.bgColor,

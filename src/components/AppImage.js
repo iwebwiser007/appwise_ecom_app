@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {Image, View} from 'react-native';
 import {colors} from '../constant/color';
 
-export const AppImage = ({style, width, height, url, backgroundColor}) => {
+export const AppImage = ({style, width, height, url, backgroundColor, resizeMode="contain"}) => {
   const [data, setData] = useState({
     loading: false,
   });
@@ -23,7 +23,7 @@ export const AppImage = ({style, width, height, url, backgroundColor}) => {
           width,
           height,
           ...style,
-          resizeMode: 'contain',
+          resizeMode: resizeMode,
           backgroundColor
         }}
         onLoadStart={onLoadStart}

@@ -5,11 +5,13 @@ import { AppHeading, AppText } from "../AppHeading";
 import { Spacer } from "../Spacer";
 import { ProductListCard } from "./ProductListCard";
 import { spacer } from "../../constant/dimension";
+import { homeProductTypes } from "../../constant/type";
 
 
 export const HomeSectionProductList=({
     title = "",
-    list=[]
+    list=[],
+    type
 })=>{
     return (
         <View style={{
@@ -34,6 +36,7 @@ export const HomeSectionProductList=({
                     return (
                         <ProductListCard
                             product={item}
+                            isNew={type === homeProductTypes.newArrivals}
                         />
                     )
                 }}
